@@ -1,0 +1,67 @@
+{
+  "name": "react-talkdesk-chat",
+  "version": "1.0.0",
+  "description": "Unofficial React wrapper for the Talkdesk Chat Widget v2",
+  "author": "Hassen Hassen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HassenH1/react-talkdesk-chat.git"
+  },
+  "homepage": "https://github.com/HassenH1/react-talkdesk-chat#readme",
+  "bugs": {
+    "url": "https://github.com/HassenH1/react-talkdesk-chat/issues"
+  },
+  "type": "module",
+  "main": "dist/talkdesk-chatwidget.cjs",
+  "module": "dist/talkdesk-chatwidget.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b ./tsconfig.app.json && vite build && node -e \"require('fs').copyFileSync('dist/index.d.ts','dist/index.d.cts')\"",
+    "prepublishOnly": "npm run build",
+    "lint": "eslint ."
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@types/node": "^24.0.15",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.5.2",
+    "eslint": "^9.29.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.34.1",
+    "vite": "^7.0.0",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "files": [
+    "/dist"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/talkdesk-chatwidget.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/talkdesk-chatwidget.cjs"
+      }
+    }
+  },
+  "keywords": [
+    "react",
+    "talkdesk",
+    "chat",
+    "chat-widget",
+    "webchat"
+  ],
+  "sideEffects": false
+}
