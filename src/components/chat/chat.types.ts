@@ -225,6 +225,11 @@ export type PropsConfig = {
    * @default false
    */
   autoOpen?: boolean;
+  /**
+   * Controls how long the component stays hidden after close; shows again when time’s up.
+   * @default 86400
+   */
+  optOutLimit?: number;
 };
 
 /**

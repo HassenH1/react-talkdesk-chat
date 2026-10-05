@@ -26,6 +26,7 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#usage">Usage</a></li>
+        <li><a href="#nextjs-app-router">Next.js (App Router)</a></li>
       </ul>
     </li>
     <li><a href="#contact">Contact</a></li>
@@ -55,7 +56,7 @@ npm install react-talkdesk-chat
 
 ### Usage
 
-1. Render `ChatWidget` once, anywhere in your app. `touchpointId` is required; everything else is optional.
+1. Render `ChatWidget` once, anywhere in your app. `touchpointId` and `region` are required; everything else is optional.
 
    ```tsx
    import { ChatWidget } from "react-talkdesk-chat";
@@ -63,9 +64,9 @@ npm install react-talkdesk-chat
    <ChatWidget
      propsConfig={{
        touchpointId: "your-touchpoint-id",
-       region: "td-us-1",
+       region: "your-region",
      }}
-   />
+   />;
    ```
 
 2. Control the widget from any component with `useWebchat`. No provider is needed.
@@ -80,6 +81,62 @@ npm install react-talkdesk-chat
    ```
 
    Available: `openChat`, `closeChat`, `destroyChat`, `initChat`, `resetChat`, `setContextParam`, `popupCloseConversation`, `endChat`, `onOpenChat`, `onCloseChat`, `onConversationStart`, `onConversationEnded`, `onConversationClear`.
+
+### Next.js (App Router)
+
+Tested with Next.js 16. The package is already marked `"use client"`, so you can render `ChatWidget` straight from your root layout, which is a Server Component. Putting it in the root layout also keeps the chat open across page navigations, because the widget is removed whenever `ChatWidget` unmounts.
+
+1. Add your touchpoint ID to `.env.local`:
+
+   ```sh
+   NEXT_PUBLIC_TALKDESK_TOUCHPOINT_ID=your-touchpoint-id
+   ```
+
+2. Render the widget in `app/layout.tsx`:
+
+   ```tsx
+   import { ChatWidget } from "react-talkdesk-chat";
+
+   export default function RootLayout({
+     children,
+   }: {
+     children: React.ReactNode;
+   }) {
+     return (
+       <html lang="en">
+         <body>
+           {children}
+           <ChatWidget
+             propsConfig={{
+               touchpointId: "your-touchpoint-id",
+               region: "your-region",
+             }}
+           />
+         </body>
+       </html>
+     );
+   }
+   ```
+
+3. Use `useWebchat` from a Client Component, since it's called from event handlers:
+
+   ```tsx
+   // app/components/ChatButtons.tsx
+   "use client";
+
+   import { useWebchat } from "react-talkdesk-chat";
+
+   export function ChatButtons() {
+     const { openChat, closeChat } = useWebchat();
+
+     return (
+       <>
+         <button onClick={() => openChat()}>Open chat</button>
+         <button onClick={() => closeChat()}>Close chat</button>
+       </>
+     );
+   }
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
