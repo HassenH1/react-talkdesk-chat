@@ -1,6 +1,6 @@
 {
   "name": "react-talkdesk-chat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Unofficial React wrapper for the Talkdesk Chat Widget v2",
   "author": "Hassen Hassen",
   "license": "MIT",
